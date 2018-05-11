@@ -1,0 +1,18 @@
+{
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions",
+              "Chrome > 56",
+              "ie > 7"
+            ]
+          },
+          "loose":true
+        }
+      ]
+    ]
+  }
+  

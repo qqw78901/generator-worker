@@ -1,0 +1,22 @@
+{
+  "name": "generator-worker",
+  "version": "2.1.1",
+  "description": "a Yeoman generator for zuo's workflow in YY.inc",
+  "main": "app/index.js",
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "host": "0.0.1",
+    "yo": "^2.0.0"
+  },
+  "peerDependencies": {
+    "yo": "^2.0.0"
+  },
+  "devDependencies": {
+    "yeoman-generator": "^1.1.1"
+  }
+}

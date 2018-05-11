@@ -1,0 +1,75 @@
+{
+  "extends": "airbnb",
+  "root": true,
+  "globals": {
+    "window": true,
+    "document": true,
+    "$": true,
+    "f2eGame": true,
+    "layer": true,
+    "f2eGameUI": true,
+    "_SDKCommonConf": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-underscore-dangle": [
+      "warn"
+    ],
+    "no-empty": 2,
+    "no-eq-null": 2,
+    "no-new": 0,
+    "no-fallthrough": 0,
+    //    "no-unreachable": 0,
+    "eqeqeq": [
+      "warn",
+      "always",
+      {
+        "null": "ignore"
+      }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn"
+    ],
+    "guard-for-in": [
+      "warn"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "no-plusplus": [
+      "warn",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ]
+  }
+}
