@@ -1,6 +1,6 @@
 {
   "name": "generator-worker",
-  "version": "2.1.1",
+  "version": "2.1.4",
   "description": "a Yeoman generator for zuo's workflow in YY.inc",
   "main": "app/index.js",
   "files": [
@@ -10,13 +10,11 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "yeoman-generator": "^1.1.1",
     "host": "0.0.1",
     "yo": "^2.0.0"
   },
   "peerDependencies": {
     "yo": "^2.0.0"
-  },
-  "devDependencies": {
-    "yeoman-generator": "^1.1.1"
   }
 }

@@ -78,6 +78,11 @@ module.exports = generators.extend({
             name: 'setHost',
             message: '需要设置ip的host成dev.yy.com吗?',
             default: false
+        }, {
+            type: 'confirm',
+            name: 'installDependencies',
+            message: '需要安装依赖吗?',
+            default: true
         }]).then(data => {
             var type = data.type;
             data.configTplPath = 'common';
@@ -94,14 +99,18 @@ module.exports = generators.extend({
             this.log(data);
             actionConfig.init(this, data).then((status) => {
                 actionTemplates.init(this, data);
-                //  this.installDependencies({
-                //    bower: false,
-                //      npm: false,
-                //     yarn: true,
-                //      callback: () => {
-                //         this.log("package completed");
-                //      }
-                //  });
+                if(!data.installDependencies){
+                    this.log("completed with no package installed");
+                    return;
+                }
+                 this.installDependencies({
+                   bower: false,
+                     npm: false,
+                    yarn: true,
+                     callback: () => {
+                        this.log("package completed");
+                     }
+                 });
             })
         })
     },

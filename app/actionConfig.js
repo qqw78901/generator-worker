@@ -1,4 +1,5 @@
-const specialFile = ['.gitignore', '.eslintrc.json','.babelrc','.eslintignore'];
+const fs = require('fs');
+const specialFile = ['.gitignore','.npmignore','.eslintrc.json','.babelrc','.eslintignore'];
 module.exports = {
     init(context, data) {
         return new Promise((resolve, reject) => {
@@ -13,9 +14,10 @@ module.exports = {
             this.destinationPath(""), packageConfig
         );
         specialFile.forEach((sp) => {
+            if(!fs.existsSync(this.templatePath(`config/${packageConfig.configTplPath}/${sp}`))){return;}
             this.fs.copy(
                 this.templatePath(`config/${packageConfig.configTplPath}/${sp}`),
-                this.destinationPath()+`/${sp}`);
+                this.destinationPath()+`/${sp!=='.npmignore'?sp:'.gitignore'}`);
         })
 
     }
