@@ -1,9 +1,30 @@
 ﻿const generators = require('yeoman-generator');
 const actionConfig = require('./actionConfig');
 const actionTemplates = require('./actionTemplates');
+const os = require('os');
+
 module.exports = generators.extend({
     prompting: function () {
         var self = this;
+        var myIpArr = [];
+        try {
+            let networkInterfaces = os.networkInterfaces();
+            for (let interfaceName in networkInterfaces) {
+                networkInterfaces[interfaceName].forEach((itemInterface) => {
+                    if (itemInterface.family.toLowerCase() === 'ipv4') {
+                        myIpArr.push({
+                            name: itemInterface.address,
+                            value: itemInterface.address
+                        })
+                    }
+                });
+            }
+        } catch (e) {
+            myIpArr = [{
+                name: '127.0.0.1',
+                value: '127.0.0.1'
+            }]
+        }
         return this.prompt([{
             type: 'input',
             name: 'title',
@@ -30,10 +51,11 @@ module.exports = generators.extend({
             message: 'prodImgPath:',
             default: ""
         }, {
-            type: 'input',
+            type: 'list',
             name: 'ip',
-            message: 'ip:',
-            default: "127.0.0.1"
+            message: '选择ip:',
+            default: '127.0.0.1',
+            choices: myIpArr
         }, {
             type: 'input',
             name: 'port',
@@ -71,19 +93,23 @@ module.exports = generators.extend({
         }, {
             type: 'confirm',
             name: 'needFangXieChi',
-            message: '打包加入防劫持?',
+            message: '打包加入耗时上报?',
             default: false
-        }, {
-            type: 'confirm',
-            name: 'setHost',
-            message: '需要设置ip的host成dev.yy.com吗?',
-            default: false
-        }, {
-            type: 'confirm',
-            name: 'installDependencies',
-            message: '需要安装依赖吗?',
-            default: true
-        }]).then(data => {
+        }]).then(data => new Promise(resolve => {
+             this.prompt([{
+                type: 'confirm',
+                name: 'setHost',
+                message: `需要设置ip[${data.ip}]的host成dev.yy.com吗?`,
+                default: false
+            }, {
+                type: 'confirm',
+                name: 'installDependencies',
+                message: '需要安装依赖吗?',
+                default: true
+            }]).then(otherData => {
+                resolve(Object.assign(data, otherData));
+            })
+        })).then(data => {
             var type = data.type;
             data.configTplPath = 'common';
             if (type.indexOf('tpl') > -1) {
@@ -91,7 +117,7 @@ module.exports = generators.extend({
                 //no need fangjiechi
                 if (data.needFangXieChi) {
                     data.needFangXieChi = false;
-                    this.log("选择新模板，不支持添加防劫持，已关闭防劫持选项");
+                    this.log("选择新模板，不支持添加防劫持，已关闭防劫持选项,自行引包html-webpack-insert-script-plugin");
                 }
             }
             return data;
@@ -99,19 +125,19 @@ module.exports = generators.extend({
             this.log(data);
             actionConfig.init(this, data).then((status) => {
                 actionTemplates.init(this, data);
-                if(!data.installDependencies){
+                if (!data.installDependencies) {
                     this.log("completed with no package installed");
                     return;
                 }
-                 this.installDependencies({
-                   bower: false,
-                     npm: false,
+                this.installDependencies({
+                    bower: false,
+                    npm: false,
                     yarn: true,
-                     callback: () => {
+                    callback: () => {
                         this.log("package completed");
-                     }
-                 });
+                    }
+                });
             })
         })
     },
-})
+});

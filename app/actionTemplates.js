@@ -1,6 +1,6 @@
 const nodeFs = require("fs");
 const host = require('host');
-let folderArray = ["src", "src/css", "src/js", "src/images"];
+let folderArray = ["src", "src/css", "src/js", "src/images", "src/images/sprites"];
 let actionTemplates = {
     init(context, data) {
         return new Promise((resolve, reject) => {
@@ -55,10 +55,10 @@ let actionTemplates = {
             return;
         }
         console.log(this.templatePath());
-        this.fs.copy(
+    /*    this.fs.copy(
             this.templatePath('dependence/HtmlWebpackInsertPlugin.js'),
             this.destinationPath('HtmlWebpackInsertPlugin.js')
-        );
+        );*/
         let xiechiFile = [config.type + "_header", config.type + "_footer"];
         xiechiFile.forEach((val, i) => {
             this.fs.copy(

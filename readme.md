@@ -55,6 +55,16 @@ npm install yeoman-worker
 - v1.5.1 更新依赖到支持node8的版本，主要是node-sass 
 - v1.5.2 改改配置 
 - v1.6.1 根据日常工作需要更新下配置，尝试发到npm上试试 
-抽出时间整理前段时间比较多做的移动端业务做出大调整于是乎有了2.x版本
+
+抽出时间整理前段时间比较多做的移动端业务对此做出大调整，于是乎有了2.x版本
+
 - v2.1.0 大调整，出于移动端需要，把原来的模板统一归为common，为vue和react框架以及adcenter工作流做准备，加入browserlist，拆分postcss等多项重大修改
 - v2.1.3 发包调整fixbug npmignore问题
+- v2.1.4 兼容npmignore
+- v2.2.1 调整common模板多处：调整三款业务的sdk到新版，顺便升级webpack到4.0，切换雪碧图插件到内部都用的spritesmith（虽然觉得原来那个好用），去除各自项目引入htmlinsertplugin，改为引入包html-webpack-insert-script-plugin，同上，改./zip为引入包dist-zip，添加precommit
+- v2.3.1 添加获取ip，修改业务中的防劫持称呼为新业务规范---耗时上报全局变量
+
+###TODO
+
+- common模板对es7的async 、ts的支持，common模板考虑添加autoprefixer
+- 对没装yarn的环境的支持

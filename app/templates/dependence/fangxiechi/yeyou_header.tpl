@@ -1,1 +1,1 @@
-  !function(t){t.loadScript(["http://szhuodong.duowan.com/feq/webgame/yy-f2e-header-webgame.min"])}(function(){function t(t){var e=n(t);document.write(e)}function n(t){for(var n,r="",c=0;n=t[c];c++)r+=e(n);return r}function e(t){var n=[unescape("%3Cscript%20type%3D%22text/javascript%22%20src%3D%22"),"",unescape("%22%3E%3C/script%3E")],e=new Date;return e.setSeconds(0),e.setMilliseconds(0),e=e.getTime(),t+="?t_="+e,n[1]=t,n.join("")}return{loadScript:function(n){n&&n.length&&n instanceof Array&&t(n)}}}())
+var _PageStartTime = +new Date();

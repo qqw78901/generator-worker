@@ -3,18 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%=description%></title>
+    <!--[if lt IE 10]>
+    <script src="//f2e.yy.com/s/lib/polyfill/html5shiv.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 <% if (needjQuery) { %>
-<script type="text/javascript" src="http://f2e.yy.com/s/lib/jquery/jquery1.8.3.min.js"></script><% } %><% switch(type){case "yeyou":%>
-<script type="text/javascript" src="http://f2e.yy.com/s/lib/sdk/js/f2e.SDK.js"></script><%break; case "duanyou":%>
-<script type="text/javascript" src=" http://f2e.yy.com/s/nc/sdk/js/fesdk-2.0.3.js"></script><%break; case "shouyou":%>
-<script type="text/javascript" src="http://f2e.yy.com/s/lib/mobile/flexible.js"></script>
-<script type="text/javascript" src="http://f2e.yy.com/s/lib/mobile/fastclick.js"></script><%break;}%>
+<script type="text/javascript" src="//f2e.yy.com/s/lib/jquery/jquery1.8.3.min.js"></script><% } %>
+<% switch(type){case "yeyou":%>
+<script id="f2eGame" charset="utf-8" type="text/javascript" src="//f2e.yy.com/s/lib/ts_sdk/release/core.js" data-config="ui"></script>
+<%break; case "duanyou":%>
+<script id="f2eGame" charset="utf-8" type="text/javascript" src="//f2e.yy.com/s/lib/ts_sdk/release/core.js" data-config="ui"></script>
+<%break; case "shouyou":%>
+<script type="text/javascript" src="//f2e.yy.com/s/lib/mobile/flexible.js"></script>
+<script type="text/javascript" src="//f2e.yy.com/s/lib/mobile/fastclick.js"></script><%break;}%>
 
 </body>
 

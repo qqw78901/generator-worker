@@ -12,11 +12,9 @@ p {
     margin: 0;
     padding:0;
 }
-
+//TODO
 @mixin inline() {
     float: left;
-    *display: inline;
-    zoom: 1;
 }
 
 @mixin countImg($img) {
@@ -33,7 +31,7 @@ p {
 @mixin btn($img) {
     width: width($img+".png");
     height: height($img+".png");
-    background: url("../images/"+$img+".png#sprbtn") no-repeat;
+    background: url("../images/"+$img+".png") no-repeat;
     &:hover {
         opacity: 0.9;
         filter: alpha(opacity=90);
