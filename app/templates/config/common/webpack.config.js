@@ -40,7 +40,7 @@ const postcssConfig = () => [
     }),
     easysprite({
         spritePath: './src/sprites'
-    })
+    }),
     // 雪碧图,在需要合并的url后加上#target即可，如background: url(../img/1.jpg#sprite) no-repeat;
 
     // unused({
@@ -201,6 +201,7 @@ let myPlugins = [
         sourceMap: true,
         compress: {
             warnings: false,
+            screw_ie8: false, // default关键字问题
             drop_console: isProd // 去掉console
         },
         parallel: true, // 多线程
