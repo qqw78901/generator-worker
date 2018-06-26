@@ -61,8 +61,10 @@ npm install yeoman-worker
 - v2.1.0 大调整，出于移动端需要，把原来的模板统一归为common，为vue和react框架以及adcenter工作流做准备，加入browserlist，拆分postcss等多项重大修改
 - v2.1.3 发包调整fixbug npmignore问题
 - v2.1.4 兼容npmignore
-- v2.2.1 调整common模板多处：调整三款业务的sdk到新版，顺便升级webpack到4.0，切换雪碧图插件到内部都用的spritesmith（虽然觉得原来那个好用），去除各自项目引入htmlinsertplugin，改为引入包html-webpack-insert-script-plugin，同上，改./zip为引入包dist-zip，添加precommit
+- v2.2.1 大调整common模板：调整三款业务的sdk到新版，顺便升级webpack到4.0，切换雪碧图插件到内部都用的spritesmith（虽然觉得原来那个好用），去除各自项目引入htmlinsertplugin，改为引入包html-webpack-insert-script-plugin，同上，改./zip为引入包dist-zip，添加precommit
 - v2.3.1 添加获取ip，修改业务中的防劫持称呼为新业务规范---耗时上报全局变量
+- v2.3.2 默认开启htmlinsertplugin,开启npm
+- v2.3.3 关闭npm
 
 ###TODO
 

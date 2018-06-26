@@ -94,7 +94,7 @@ module.exports = generators.extend({
             type: 'confirm',
             name: 'needFangXieChi',
             message: '打包加入耗时上报?',
-            default: false
+            default: true
         }]).then(data => new Promise(resolve => {
              this.prompt([{
                 type: 'confirm',
@@ -122,7 +122,6 @@ module.exports = generators.extend({
             }
             return data;
         }).then((data) => {
-            this.log(data);
             actionConfig.init(this, data).then((status) => {
                 actionTemplates.init(this, data);
                 if (!data.installDependencies) {
