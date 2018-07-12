@@ -116,8 +116,8 @@ module.exports = generators.extend({
                 data.configTplPath = type.split('-')[1];
                 //no need fangjiechi
                 if (data.needFangXieChi) {
-                    data.needFangXieChi = false;
-                    this.log("选择新模板，不支持添加防劫持，已关闭防劫持选项,自行引包html-webpack-insert-script-plugin");
+                    // data.needFangXieChi = false;
+                    // this.log("选择新模板，不支持添加耗时上报，已关闭防劫持选项,可自行引包html-webpack-insert-script-plugin");
                 }
             }
             return data;
@@ -128,14 +128,26 @@ module.exports = generators.extend({
                     this.log("completed with no package installed");
                     return;
                 }
-                this.installDependencies({
-                    bower: false,
-                    npm: false,
-                    yarn: true,
-                    callback: () => {
-                        this.log("package completed");
-                    }
-                });
+                try{
+                    this.installDependencies({
+                        bower: false,
+                        npm: false,
+                        yarn: true,
+                        callback: () => {
+                            this.log("package completed");
+                        }
+                    });
+                }catch(e){
+                    this.installDependencies({
+                        bower: false,
+                        npm: true,
+                        yarn: false,
+                        callback: () => {
+                            this.log("package completed");
+                        }
+                    });
+                }
+          
             })
         })
     },

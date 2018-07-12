@@ -16,16 +16,16 @@ const isDaily = process.env.NODE_ENV === 'daily';
 
 // const reportHtml = require('eslint/lib/formatters/html');
 
-const prodJsCSSPath = "<%=prodJsCSSPath%>";
-const prodImgPath = "<%=prodImgPath%>";
+const prodJsCSSPath = "";
+const prodImgPath = "";
 
 
 const watchJsCSSPath = "";
 const watchImgPath = "../";
 
-const ip = '<%=ip%>';
-const port = <%=port%>;
-const host = '<%=ip%>';
+const ip = '172.27.21.1';
+const port = 80;
+const host = '172.27.21.1';
 const devHost = `http://${host}:${port}`;
 
 
@@ -88,9 +88,19 @@ const imgWebpackLoader = {
 
     }
 }
-
-const myLoaders = [
+let sassLoaderOpts = ['css-loader',
     {
+        loader: 'px2rem-loader',
+        // options here
+        options: {
+            remUnit: 108,
+            remPrecision: 8
+        }
+    },
+    'postcss-loader',
+    'sass-loader'
+]
+const myLoaders = [{
         test: /\.html$/,
         use: {
             loader: 'html-loader',
@@ -104,22 +114,7 @@ const myLoaders = [
         test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader', // 将所有的计算后的样式加入页面中
-            use: [
-                {
-                    loader: 'css-loader',
-                    options: { sourceMap: true } 
-                },    
-                {
-                    loader: 'px2rem-loader',
-                    options: {
-                      remUnit: 108,
-                      remPrecision: 8
-                    }
-                },{
-                    loader: 'postcss-loader'
-                }, {
-                    loader: 'sass-loader'
-                }]// 使你能够使用类似@import和url（...）的方法实现require的功能
+            use: sassLoaderOpts // 使你能够使用类似@import和url（...）的方法实现require的功能
         })
     },
     {
@@ -130,23 +125,48 @@ const myLoaders = [
             loader: "eslint-loader",
             options: {
                 fix: true,
-                emitWarning: !isProd/**,// test:true
-                outputReport: {
-                    filePath: 'eslint-report.html',
-                    formatter: reportHtml
-                }**/
+                emitWarning: !isProd
+                /**,// test:true
+                                outputReport: {
+                                    filePath: 'eslint-report.html',
+                                    formatter: reportHtml
+                                }**/
             }
 
-        }
-        ],
+        }],
         exclude: /node_modules/
+    },
+    {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+            loaders: {
+                // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                // the "scss" and "sass" values for the lang attribute to the right configs here.
+                // other preprocessors should work out of the box, no loader config like this necessary.
+                scss: isProd ? ExtractTextPlugin.extract({
+                    use: sassLoaderOpts,
+                    fallback: 'vue-style-loader'
+                }) : [
+                    'vue-style-loader',
+                    ...sassLoaderOpts
+                ],
+                sass: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader?indentedSyntax'
+                ],
+                postcss: {}
+            }
+            // other vue-loader options go here
+        }
     },
     {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: isProd ? [urlLoader, imgWebpackLoader] : urlLoader
     }
 ];
-const myPlugins = [
+let myPlugins = [
     new ExtractTextPlugin('css/[name].css'),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -154,7 +174,7 @@ const myPlugins = [
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './src/index.html',
-        inject: 'true',
+        inject: true,
         hash: isProd,
         chunksSortMode: 'manual',
         chunks: ['index'], // 不同模块加载不同内容
@@ -163,18 +183,6 @@ const myPlugins = [
             removeAttributeQuotes: false
         }
     }),
-    <% if (needFangXieChi) { %>
-        // 防挟持
-        new HtmlWebpackInsertPlugin({
-            open: isProd,
-            head: [
-                __dirname + "/src/lib/fxc/<%=type%>_header.js"
-            ]
-            // body: [
-            //     __dirname + "/src/lib/fxc/<%=type%>_footer.js"
-            // ]
-        }),
-     <% } %>
     // new CopyWebpackPlugin([
     //     {
     //         from: path.join(__dirname, './static'),
@@ -184,7 +192,7 @@ const myPlugins = [
     // ]),
 
     // 防挟持
-    
+
     new webpack.optimize.UglifyJsPlugin({
         sourceMap: true,
         compress: {
@@ -205,7 +213,12 @@ const myPlugins = [
         browser: 'chrome'
     })
 ];
-
+if (isProd) {
+    // myPlugins.push(new F2egameHTML({
+    //     // ['web', 'client', '4366', 'mobile']
+    //     product: 'client'
+    // }));
+}
 const webConfig = {
     // devtool: '#cheap-module-eval-source-map',
     devtool: isProd ? false : 'cheap-module-eval-source-map',
@@ -223,7 +236,8 @@ const webConfig = {
         extensions: [
             '.js',
             '.css',
-            '.scss'
+            '.scss',
+            '.vue'
         ]
     },
     devServer: { // 开发服务器配置

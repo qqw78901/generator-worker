@@ -27,16 +27,16 @@
     - 页游（2.x版本统一称为common）
     - 端游（2.x版本统一称为common）
     - 手游（2.x版本统一称为common）
-- mobile-simple 移动端单页面 不适用js框架，适合小页面
+- mobile-simple 移动端单页面 不使用js框架，适合小页面
 - mobile-vue 移动端vue页面
 
 
 ### 安装项目
 
 ```text
-npm install yeoman -g
+npm install yo -g
 可以直接安装本代码库
-npm install yeoman-worker
+npm install yeoman-worker -g
 也可以在yeoman里搜索安装worker库
 
 ```
@@ -65,8 +65,12 @@ npm install yeoman-worker
 - v2.3.1 添加获取ip，修改业务中的防劫持称呼为新业务规范---耗时上报全局变量
 - v2.3.2 默认开启htmlinsertplugin,开启npm
 - v2.3.3 关闭npm
+- v2.4.0 升级common html-webpack-insert-script-plugin依赖包,修改mobile-simple为依赖dist-zip等两款包，小整理后加入mobile-vue,但未测试过 对没装yarn的环境的支持
+- v2.4.1 fix bug
+- v2.5.0 改改mobile-vue
+- v2.5.1 precommit bug fixed
 
 ###TODO
 
 - common模板对es7的async 、ts的支持，common模板考虑添加autoprefixer
-- 对没装yarn的环境的支持
+- 对没装yarn的环境的支持[done]

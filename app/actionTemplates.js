@@ -35,7 +35,6 @@ let actionTemplates = {
         });
     },
     createTemplates(config) {
-        console.log(config);
         // this.fs.write(this.destinationPath('src/js/index.js'), "");
         this.fs.copy(
             this.templatePath(`js/${config.configTplPath}/`),
@@ -49,6 +48,14 @@ let actionTemplates = {
             this.templatePath(`html/${config.configTplPath}/index.html`),
             this.destinationPath('src/index.html'), config
         );
+        let othersPath = this.templatePath(`others/${config.configTplPath}`);
+        if (nodeFs.existsSync(othersPath)) {
+            this.fs.copy(
+                this.templatePath(`others/${config.configTplPath}/`),
+                this.destinationPath('src')
+            );
+        }
+       
     },
     createDependence(config) {
         if (!config.needFangXieChi) {

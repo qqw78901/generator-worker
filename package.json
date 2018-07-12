@@ -1,13 +1,21 @@
 {
   "name": "generator-worker",
-  "version": "2.3.4",
+  "version": "2.5.1",
   "description": "a Yeoman generator for zuo's workflow in YY.inc",
   "main": "app/index.js",
   "files": [
     "app"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "webpack",
+    "ie8",
+    "build",
+    "tool",
+    "yeoman",
+    "cli",
+    "vue",
+    "react"
   ],
   "dependencies": {
     "yeoman-generator": "^1.1.1",
