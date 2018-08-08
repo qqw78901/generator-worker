@@ -80,10 +80,11 @@ yo worker
 - v2.5.0 改改mobile-vue
 - v2.5.1 precommit bug fixed
 - v2.5.2 fix deploy command bug,增加readme以便说明deploy的使用需要开启两个进程这一个情况
-- v2.5.3 common模板 增加proposal-class-propertie：对class内使用箭头函数（proposal-class-propertie）的babel默认支持；
-- v2.5.4 mobilevue模板：微调配置，common模板修复deploy配置
-- v2.6.0 全线模板添加HtmlWebpackCheckSourcePlugin，包版本使用最新，common模板，关闭jsbeautify,配置host变量改成dev.yy.com
-- v2.7.0 核心配置添加userName为模板做准备，改业务防劫持文件夹命名为耗时上报，该修改仅测试common模板，未覆盖新模板；修复appname横杠变空格问题；common模板：配置host变量改回ip,去除openbrowser插件，补充readme样例
+- v2.5.3 common模板 增加proposal-class-propertie：对class内使用箭头函数（proposal-class-propertie）的babel默认支持 
+- v2.5.4 mobilevue模板：微调配置，common模板修复deploy配置 
+- v2.6.0 全线模板添加HtmlWebpackCheckSourcePlugin，包版本使用最新，common模板，关闭jsbeautify,配置host变量改成dev.yy.com 
+- v2.7.0 核心配置添加userName为模板做准备，改业务防劫持文件夹命名为耗时上报，该修改仅测试common模板，未覆盖新模板；修复appname横杠变空格问题；common模板：配置host变量改回ip,去除openbrowser插件，补充readme样例，打包后代码注释添加userName，默认注释雪碧图插件，跟随html-webpack-check-source-plugin的api扩展添加配置open
+
 
 ###TODO
 
@@ -91,3 +92,4 @@ yo worker
 - 对没装yarn的环境的支持[done]
 - 最近的业务做了一个项目同时运行移动版和pc版的，即改进文件夹结构，改进配置，对手机版应用px2rem、autoprefixer，而pc版正常，所以计划添加一个新模板--[新模板-多端]
 - vue默认装上router，注释逻辑代码
+- folder js to entry
