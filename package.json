@@ -1,11 +1,16 @@
 {
   "name": "generator-worker",
-  "version": "2.5.1",
+  "version": "2.7.0",
   "description": "a Yeoman generator for zuo's workflow in YY.inc",
   "main": "app/index.js",
   "files": [
     "app"
   ],
+  "author": {
+    "email": "qqw78901@126.com",
+    "name": "ZuoWenqi",
+    "url": "https://www.gdutzuo.top"
+  },
   "keywords": [
     "yeoman-generator",
     "webpack",
@@ -18,8 +23,9 @@
     "react"
   ],
   "dependencies": {
-    "yeoman-generator": "^1.1.1",
     "host": "0.0.1",
+    "js-pinyin": "^0.1.9",
+    "yeoman-generator": "^1.1.1",
     "yo": "^2.0.0"
   },
   "peerDependencies": {

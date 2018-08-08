@@ -2,7 +2,8 @@
 const actionConfig = require('./actionConfig');
 const actionTemplates = require('./actionTemplates');
 const os = require('os');
-
+const pinyin = require("js-pinyin");
+pinyin.setOptions({checkPolyphone: false, charCase: 0});
 module.exports = generators.extend({
     prompting: function () {
         var self = this;
@@ -25,16 +26,24 @@ module.exports = generators.extend({
                 value: '127.0.0.1'
             }]
         }
+        this.developerName = this.user.git.name()||"";
+        var developer =pinyin.getFullChars(this.developerName);
+        var appName = this.determineAppname().replace(/ /g,'-');
         return this.prompt([{
+            type: 'input',
+            name: 'developer',
+            message: '姓名(英文)：',
+            default: developer // Default to current folder name
+        }, {
             type: 'input',
             name: 'title',
             message: '项目名（英文）：',
-            default: this.appname // Default to current folder name
+            default: appName// Default to current folder name
         }, {
             type: 'input',
             name: 'description',
             message: '项目名(中文）：',
-            default: this.appname // Default to current folder name
+            default: appName // Default to current folder name
         }, {
             type: 'input',
             name: 'version',
@@ -43,12 +52,12 @@ module.exports = generators.extend({
         }, {
             type: 'input',
             name: 'prodJsCSSPath',
-            message: 'prodJsCSSPath：',
+            message: 'JS&CSS资源地址：',
             default: ""
         }, {
             type: 'input',
             name: 'prodImgPath',
-            message: 'prodImgPath:',
+            message: '图片资源地址:',
             default: ""
         }, {
             type: 'list',
@@ -92,11 +101,11 @@ module.exports = generators.extend({
             default: true
         }, {
             type: 'confirm',
-            name: 'needFangXieChi',
+            name: 'needTimeStat',
             message: '打包加入耗时上报?',
             default: true
         }]).then(data => new Promise(resolve => {
-             this.prompt([{
+            this.prompt([{
                 type: 'confirm',
                 name: 'setHost',
                 message: `需要设置ip[${data.ip}]的host成dev.yy.com吗?`,
@@ -115,11 +124,12 @@ module.exports = generators.extend({
             if (type.indexOf('tpl') > -1) {
                 data.configTplPath = type.split('-')[1];
                 //no need fangjiechi
-                if (data.needFangXieChi) {
-                    // data.needFangXieChi = false;
+                if (data.needTimeStat) {
+                    // data.needTimeStat = false;
                     // this.log("选择新模板，不支持添加耗时上报，已关闭防劫持选项,可自行引包html-webpack-insert-script-plugin");
                 }
             }
+            data.developerName=  this.developerName;
             return data;
         }).then((data) => {
             actionConfig.init(this, data).then((status) => {
@@ -128,7 +138,7 @@ module.exports = generators.extend({
                     this.log("completed with no package installed");
                     return;
                 }
-                try{
+                try {
                     this.installDependencies({
                         bower: false,
                         npm: false,
@@ -137,7 +147,7 @@ module.exports = generators.extend({
                             this.log("package completed");
                         }
                     });
-                }catch(e){
+                } catch (e) {
                     this.installDependencies({
                         bower: false,
                         npm: true,
@@ -147,7 +157,7 @@ module.exports = generators.extend({
                         }
                     });
                 }
-          
+
             })
         })
     },

@@ -29,6 +29,7 @@
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.5",
         "html-loader": "^0.5.1",
+        "html-webpack-check-source-plugin": ">1.0.0",
         "html-webpack-insert-script-plugin": ">1.3.3",
         "html-webpack-plugin": "^2.30.1",
         "image-webpack-loader": "^3.4.2",

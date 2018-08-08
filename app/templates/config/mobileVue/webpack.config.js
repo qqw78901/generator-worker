@@ -5,9 +5,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 额外打包插件
 const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin'); // 打开浏览器插件
-<% if (needFangXieChi) { %>
+<% if (needTimeStat) { %>
     const HtmlWebpackInsertPlugin = require('html-webpack-insert-script-plugin'); // script插入
 <% } %>
+const HtmlWebpackCheckSourcePlugin = require('html-webpack-check-source-plugin'); // 先序插入
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -15,17 +16,16 @@ const isDaily = process.env.NODE_ENV === 'daily';
 
 
 // const reportHtml = require('eslint/lib/formatters/html');
-
-const prodJsCSSPath = "";
-const prodImgPath = "";
+const prodJsCSSPath = "<%=prodJsCSSPath%>";
+const prodImgPath = "<%=prodImgPath%>";
 
 
 const watchJsCSSPath = "";
 const watchImgPath = "../";
 
-const ip = '172.27.21.1';
-const port = 80;
-const host = '172.27.21.1';
+const ip = '<%=ip%>';
+const port = <%=port%>;
+const host = '<%=ip%>';
 const devHost = `http://${host}:${port}`;
 
 
@@ -181,6 +181,17 @@ let myPlugins = [
         minify: {
             collapseWhitespace: false,
             removeAttributeQuotes: false
+        }
+    }),
+    new HtmlWebpackCheckSourcePlugin({
+        emitWarning: isDevelopment,// if dev mod emit warn,else emit error and stop packing
+        checkFn(resourceLink) {
+            if (resourceLink.indexOf("http://") > -1) {
+                return '链接带有http://'
+            };
+            if (resourceLink.indexOf('/lib/ts_sdk/test/core.js') > -1) {
+                return '使用测试版资源'
+            }
         }
     }),
     // new CopyWebpackPlugin([

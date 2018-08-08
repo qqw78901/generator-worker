@@ -1,19 +1,20 @@
 const webpack = require('webpack');
 const fs = require('fs');
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin'); /**html插件 */
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 额外打包插件
-const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin'); // 打开浏览器插件
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const Es3ifyPlugin = require('es3ify-webpack-plugin');
 const assects = require('postcss-assets');
-const SpritesmithPlugin = require('webpack-spritesmith');
+// const SpritesmithPlugin = require('webpack-spritesmith');
 
-<% if (needFangXieChi) { %>
-    const HtmlWebpackInsertPlugin = require('html-webpack-insert-script-plugin'); // 先序插入
+<% if (needTimeStat) { %>
+const HtmlWebpackInsertPlugin = require('html-webpack-insert-script-plugin'); // 先序插入
 <% } %>
+const HtmlWebpackCheckSourcePlugin = require('html-webpack-check-source-plugin'); // 静态资源检查
+const packageJson = require('./package.json');
 const isProd = process.env.NODE_ENV === 'production';
 const isDaily = process.env.NODE_ENV === 'daily';
 const isDevelopment = !isProd && !isDaily;
@@ -21,9 +22,9 @@ const isDevelopment = !isProd && !isDaily;
 
 // const reportHtml = require('eslint/lib/formatters/html');
 
+/* **********************基本配置************************* */
 const prodJsCSSPath = "<%=prodJsCSSPath%>";
 const prodImgPath = "<%=prodImgPath%>";
-
 
 const watchJsCSSPath = "";
 const watchImgPath = "../";
@@ -33,17 +34,14 @@ const port = <%=port%>;
 const host = '<%=ip%>';
 const devHost = `http://${host}:${port}`;
 
+/* **********************基本配置************************* */
+
 
 const postcssConfig = () => [
     assects({
         loadPaths: ['./src/images'],
         relative: true
     }),
-    // 雪碧图,在需要合并的url后加上#target即可，如background: url(../img/1.jpg#sprite) no-repeat;
-
-    // unused({
-    //     html: ['./*.html']
-    // })
 ];
 const getEntryJs = (jspath) => {
     const fileList = {};
@@ -105,8 +103,7 @@ const imgWebpackLoader = {
     }
 }
 
-const myLoaders = [
-    {
+const myLoaders = [{
         test: /\.html$/,
         use: {
             loader: 'html-loader',
@@ -119,17 +116,18 @@ const myLoaders = [
     {
         test: /\.s?css$/,
         use: ExtractTextPlugin.extract({
-            use: [
-                {
-                    loader: 'css-loader',
-                    options: { sourceMap: true } // <=
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: postcssConfig
-                    }
-                }, {
-                    loader: 'sass-loader'
+            use: [{
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true
+                } // <=
+            }, {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: postcssConfig
+                }
+            }, {
+                loader: 'sass-loader'
             }], // 使你能够使用类似@import和url（...）的方法实现require的功能
             fallback: 'style-loader' // 将所有的计算后的样式加入页面中
         })
@@ -142,15 +140,15 @@ const myLoaders = [
             loader: "eslint-loader",
             options: {
                 fix: true,
-                emitWarning: !isProd/**,// test:true
-                outputReport: {
-                    filePath: 'eslint-report.html',
-                    formatter: reportHtml
-                }**/
+                emitWarning: !isProd
+                /**,// test:true
+                                outputReport: {
+                                    filePath: 'eslint-report.html',
+                                    formatter: reportHtml
+                                }**/
             }
 
-        }
-        ],
+        }],
         exclude: /node_modules/
     },
     {
@@ -163,19 +161,28 @@ const myPlugins = [
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-    new SpritesmithPlugin({
-        src: {
-            cwd: path.resolve(__dirname, 'src/images/sprites'),
-            glob: '*.png',
-        },
-        target: {
-            image: path.resolve(__dirname, 'src/images/sprite.png'),
-            css: path.resolve(__dirname, 'src/css/sprite.scss')
-        },
-        apiOptions: {
-            cssImageRef: '../images/sprite.png'
-        }
-    }),
+    /**雪碧图插件 */
+    // new SpritesmithPlugin({
+    //     src: {
+    //         cwd: path.resolve(__dirname, 'src/images/sprites'),
+    //         glob: '*.png',
+    //     },
+    //     target: {
+    //         image: path.resolve(__dirname, 'src/images/sprite.png'),
+    //         css: path.resolve(__dirname, 'src/css/sprite.scss')
+    //     },
+    //     apiOptions: {
+    //         cssImageRef: '../images/sprite.png'
+    //     }
+    // }),
+
+    // new CopyWebpackPlugin([
+    //     {
+    //         from: path.join(__dirname, './static'),
+    //         to: path.join(__dirname, './dist/static'),
+    //         ignore: ['.*']
+    //     }
+    // ]),
     new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './src/index.html',
@@ -188,38 +195,36 @@ const myPlugins = [
             removeAttributeQuotes: false
         }
     }),
-    // new CopyWebpackPlugin([
-    //     {
-    //         from: path.join(__dirname, './static'),
-    //         to: path.join(__dirname, './dist/static'),
-    //         ignore: ['.*']
-    //     }
-    // ]),
-
     // 防挟持
-    <% if (needFangXieChi) { %>
+    <% if (needTimeStat) { %>
     // 防挟持
     new HtmlWebpackInsertPlugin({
         open: isProd,
         head: [
-            __dirname + "/src/lib/fxc/<%=type%>_header.js"
+            __dirname + "/src/lib/timestat/common_header.js"
         ]
         // body: [
-        //     __dirname + "/src/lib/fxc/<%=type%>_footer.js"
         // ]
     }),
-        <% } %>
-
+    <% } %>
+    new HtmlWebpackCheckSourcePlugin({
+        open: isProd,
+        emitWarning: false, // if dev mod emit warn,else emit error and stop packing
+        checkFn(resourceLink) {
+            if (resourceLink.indexOf("http://") > -1) {
+                return '链接带有http://'
+            };
+            if (resourceLink.indexOf('/lib/ts_sdk/test/core.js') > -1) {
+                return '使用测试版资源'
+            }
+        }
+    }),
     // new Es3ifyPlugin(),
-    new OpenBrowserWebpackPlugin({
-        url: devHost,
-        browser: 'chrome'
-    })
 ];
 
 const webConfig = {
     mode: isDevelopment ? "development" : "production",
-    devtool: isProd ? false : 'cheap-module-eval-source-map',
+    devtool: !isDevelopment ? false : 'cheap-module-eval-source-map',
     entry: getEntryJs('./src/js'),
     output: {
         path: path.join(__dirname, 'dist'),
@@ -233,7 +238,6 @@ const webConfig = {
     resolve: {
         extensions: [
             '.js',
-            '.json',
             '.css',
             '.scss',
             '.sass'
@@ -251,9 +255,9 @@ const webConfig = {
                     },
                     parallel: true, // 多线程
                     output: {
-                        beautify: true,
+                        beautify: false,
                         comments: !isProd, // 去掉注释内容
-                        preamble: `/**${new Date().toLocaleString()}**/`
+                        preamble: `/**${new Date().toLocaleString()} author:${packageJson.person.name}**/`
                     },
                     ie8: true,
                     keep_classnames: false,
@@ -263,6 +267,8 @@ const webConfig = {
         ]
     },
     devServer: { // 开发服务器配置
+        open: true,
+        // openPage:"test.thml",// 指定打开页面
         contentBase: 'dist',
         host: ip,
         port,

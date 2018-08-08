@@ -40,6 +40,7 @@
     "no-empty": 2,
     "no-eq-null": 2,
     "no-new": 0,
+    "no-debugger":"off",
     "no-fallthrough": 0,
     "eqeqeq": [
       "warn",

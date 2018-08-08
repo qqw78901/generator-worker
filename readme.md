@@ -15,7 +15,8 @@
 
 
 模板特性：
- - 兼容ie8，会处理loose，会处理
+ - 兼容ie8，会处理loose
+ - 带lint和precommmit，不合规范的js代码禁止commit
  - 自带有asset（隔壁同事介绍用的一个会计算图片大小的post-css插件）
  - 图片合并雪碧图插件
  - 手游带有rem计算的属性（目前已用px2rem替代）
@@ -34,11 +35,20 @@
 ### 安装项目
 
 ```text
-npm install yo -g
+npm install yo generator-worker -g
+//or
+yarn global add yo generator-worker
+
 可以直接安装本代码库
-npm install yeoman-worker -g
+npm install generator-worker -g
 也可以在yeoman里搜索安装worker库
 
+```
+
+### 使用
+
+```text
+yo worker
 ```
 
 ###更新记录
@@ -69,8 +79,15 @@ npm install yeoman-worker -g
 - v2.4.1 fix bug
 - v2.5.0 改改mobile-vue
 - v2.5.1 precommit bug fixed
+- v2.5.2 fix deploy command bug,增加readme以便说明deploy的使用需要开启两个进程这一个情况
+- v2.5.3 common模板 增加proposal-class-propertie：对class内使用箭头函数（proposal-class-propertie）的babel默认支持；
+- v2.5.4 mobilevue模板：微调配置，common模板修复deploy配置
+- v2.6.0 全线模板添加HtmlWebpackCheckSourcePlugin，包版本使用最新，common模板，关闭jsbeautify,配置host变量改成dev.yy.com
+- v2.7.0 核心配置添加userName为模板做准备，改业务防劫持文件夹命名为耗时上报，该修改仅测试common模板，未覆盖新模板；修复appname横杠变空格问题；common模板：配置host变量改回ip,去除openbrowser插件，补充readme样例
 
 ###TODO
 
 - common模板对es7的async 、ts的支持，common模板考虑添加autoprefixer
 - 对没装yarn的环境的支持[done]
+- 最近的业务做了一个项目同时运行移动版和pc版的，即改进文件夹结构，改进配置，对手机版应用px2rem、autoprefixer，而pc版正常，所以计划添加一个新模板--[新模板-多端]
+- vue默认装上router，注释逻辑代码
