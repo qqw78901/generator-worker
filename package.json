@@ -22,6 +22,9 @@
     "vue",
     "react"
   ],
+  "engines": {
+    "node": ">=6.10.0"
+  },
   "dependencies": {
     "host": "0.0.1",
     "js-pinyin": "^0.1.9",
