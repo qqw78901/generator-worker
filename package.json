@@ -1,6 +1,6 @@
 {
   "name": "generator-worker",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "a Yeoman generator for zuo's workflow in YY.inc",
   "main": "app/index.js",
   "files": [
