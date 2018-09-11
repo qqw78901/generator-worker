@@ -184,7 +184,7 @@ let myPlugins = [
         }
     }),
     new HtmlWebpackCheckSourcePlugin({
-        emitWarning: isDevelopment,// if dev mod emit warn,else emit error and stop packing
+        emitWarning: !isProd,// if dev mod emit warn,else emit error and stop packing
         checkFn(resourceLink) {
             if (resourceLink.indexOf("http://") > -1) {
                 return '链接带有http://'
