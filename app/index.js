@@ -76,16 +76,10 @@ module.exports = generators.extend({
             message: '业务类型:',
             default: "yeyou",
             choices: [{
-                name: "页游",
+                name: "通用版-PC",
                 value: "yeyou"
             }, {
-                name: "端游",
-                value: "duanyou"
-            }, {
-                name: "手游",
-                value: "shouyou"
-            }, {
-                name: "新模板-移动端-simple",
+                name: "新模板-移动端-无框架",
                 value: "tpl-mobileSimple"
             }, {
                 name: "新模板-移动端-vue",
