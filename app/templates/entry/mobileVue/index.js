@@ -3,7 +3,7 @@ import Vue from 'vue';
 import App from '../App.vue';
 
 window.FastClick.attach(document.body);
-/**if you nedd,pick it */
+/**if you need,pick it */
 /**
  * 
 Vue.prototype.$clickStat = (eid, eidDesc) => {

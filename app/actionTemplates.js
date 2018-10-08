@@ -1,6 +1,6 @@
 const nodeFs = require("fs");
 const host = require('host');
-let folderArray = ["src", "src/css", "src/js", "src/images", "src/images/sprites"];
+let folderArray = ["src", "src/css", "src/entry", "src/images", "src/images/sprites"];
 let actionTemplates = {
     init(context, data) {
         return new Promise((resolve, reject) => {
@@ -37,8 +37,8 @@ let actionTemplates = {
     createTemplates(config) {
         // this.fs.write(this.destinationPath('src/js/index.js'), "");
         this.fs.copy(
-            this.templatePath(`js/${config.configTplPath}/`),
-            this.destinationPath('src/js')
+            this.templatePath(`entry/${config.configTplPath}/`),
+            this.destinationPath('src/entry')
         );
         this.fs.copy(
             this.templatePath(`css/${config.configTplPath}/`),
@@ -61,16 +61,15 @@ let actionTemplates = {
         if (!config.needTimeStat) {
             return;
         }
-        console.log(this.templatePath());
         /*    this.fs.copy(
                 this.templatePath('dependence/HtmlWebpackInsertPlugin.js'),
                 this.destinationPath('HtmlWebpackInsertPlugin.js')
             );*/
         let timeStatFile = ['common_header'];
-        timeStatFile.forEach((val, i) => {
+        timeStatFile.forEach((val) => {
             this.fs.copy(
                 this.templatePath('dependence/timestat/' + val + ".tpl"),
-                this.destinationPath('src/lib/timestat/' + val + ".js")
+                this.destinationPath('lib/timestat/' + val + ".js")
             );
         })
     }

@@ -103,16 +103,17 @@ const imgWebpackLoader = {
     }
 }
 
-const myLoaders = [{
-        test: /\.html$/,
-        use: {
-            loader: 'html-loader',
-            options: {
-                minimize: false,
-                attrs: ['img:src', 'li:data-src', 'img:data-src']
-            }
-        },
-    },
+const myLoaders = [
+    // {
+    //     test: /\.html$/,
+    //     use: {
+    //         loader: 'html-loader',
+    //         options: {
+    //             minimize: false,
+    //             attrs: ['img:src', 'li:data-src', 'img:data-src']
+    //         }
+    //     },
+    // },
     {
         test: /\.s?css$/,
         use: ExtractTextPlugin.extract({
@@ -201,7 +202,7 @@ const myPlugins = [
     new HtmlWebpackInsertPlugin({
         open: isProd,
         head: [
-            __dirname + "/src/lib/timestat/common_header.js"
+            path.join(__dirname,'./lib/timestat/common_header.js')
         ]
         // body: [
         // ]
@@ -225,7 +226,7 @@ const myPlugins = [
 const webConfig = {
     mode: isDevelopment ? "development" : "production",
     devtool: !isDevelopment ? false : 'cheap-module-eval-source-map',
-    entry: getEntryJs('./src/js'),
+    entry: getEntryJs('./src/entry'),
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: judgeJsCssPath(),

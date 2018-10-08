@@ -233,7 +233,7 @@ if (isProd) {
 const webConfig = {
     // devtool: '#cheap-module-eval-source-map',
     devtool: isProd ? false : 'cheap-module-eval-source-map',
-    entry: getEntryJs('./src/js'),
+    entry: getEntryJs('./src/entry'),
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: judgeJsCssPath(),
