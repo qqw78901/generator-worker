@@ -91,6 +91,7 @@ yo worker
 - v2.7.0 核心配置添加userName为模板做准备，改业务防劫持文件夹命名为耗时上报，该修改仅测试common模板，未覆盖新模板；修复appname横杠变空格问题；common模板：配置host变量改回ip,去除openbrowser插件，补充readme样例，打包后代码注释添加userName，默认注释雪碧图插件，跟随html-webpack-check-source-plugin的api扩展添加配置open
 - v2.7.2 fix bug
 - v2.7.3 urgent fix eslint-loader pack to 2.0.0, ignore lint timestat
+- v2.8.0-beta 文件夹js换成entry，commom模板依赖更新
 
 
 ###TODO
