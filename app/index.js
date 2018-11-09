@@ -123,19 +123,32 @@ module.exports = generators.extend({
                 resolve(Object.assign(data, otherData));
             })
         })).then(data => new Promise(resolve => {
-            this.prompt([{
-                type: 'confirm',
-                name: 'setHost',
-                message: `需要设置ip[${data.ip}]的host成dev.yy.com吗?`,
-                default: false
-            }, {
-                type: 'confirm',
-                name: 'installDependencies',
-                message: '需要安装依赖吗?',
-                default: true
-            }]).then(otherData => {
-                resolve(Object.assign(data, otherData));
-            })
+            if(data.type==="tpl-mobileMiniProgram"){
+                this.prompt([{
+                    type: 'confirm',
+                    name: 'installDependencies',
+                    message: '需要安装依赖吗?',
+                    default: true
+                }]).then(otherData => {
+                    resolve(Object.assign(data, otherData));
+                })
+                return;
+            }else{
+                this.prompt([{
+                    type: 'confirm',
+                    name: 'setHost',
+                    message: `需要设置ip[${data.ip}]的host成dev.yy.com吗?`,
+                    default: false
+                }, {
+                    type: 'confirm',
+                    name: 'installDependencies',
+                    message: '需要安装依赖吗?',
+                    default: true
+                }]).then(otherData => {
+                    resolve(Object.assign(data, otherData));
+                })
+            }
+            
         })).then(data => {
             var type = data.type;
             data.configTplPath = 'common';
