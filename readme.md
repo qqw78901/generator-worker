@@ -92,6 +92,7 @@ yo worker
 - v2.7.2 fix bug
 - v2.7.3 urgent fix eslint-loader pack to 2.0.0, ignore lint timestat
 - v2.8.0-0 文件夹js换成entry，commom模板依赖更新
+- v2.9.0-0 新增mpvue小程序模板
 
 
 ###TODO
