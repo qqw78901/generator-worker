@@ -49,33 +49,17 @@ module.exports = generators.extend({
             name: 'version',
             message: 'version：',
             default: "1.0.0"
-        }, {
-            type: 'input',
-            name: 'prodJsCSSPath',
-            message: 'JS&CSS资源地址：',
-            default: ""
-        }, {
-            type: 'input',
-            name: 'prodImgPath',
-            message: '图片资源地址:',
-            default: ""
-        }, {
-            type: 'list',
-            name: 'ip',
-            message: '选择ip:',
-            default: '127.0.0.1',
-            choices: myIpArr
-        }, {
-            type: 'input',
-            name: 'port',
-            message: '端口:',
-            default: "80"
-        }, {
+        },{
             type: 'list',
             name: 'type',
             message: '业务类型:',
             default: "yeyou",
-            choices: [{
+            choices: [
+            {
+                name: "移动端-小程序",
+                value: "tpl-mobileMiniProgram"
+            },
+            {
                 name: "通用版-PC",
                 value: "yeyou"
             }, {
@@ -88,17 +72,57 @@ module.exports = generators.extend({
                 name: "新模板-移动端-react",
                 value: "tpl-mobileReact"
             }]
-        }, {
-            type: 'confirm',
-            name: 'needjQuery',
-            message: 'needjQuery?',
-            default: true
-        }, {
-            type: 'confirm',
-            name: 'needTimeStat',
-            message: '打包加入耗时上报?',
-            default: true
         }]).then(data => new Promise(resolve => {
+            if(data.type==="tpl-mobileMiniProgram"){
+                this.prompt([
+                    {
+                        type: 'input',
+                        name: 'appId',
+                        message: '小程序的APPID是：',
+                        default: ""
+                    }
+                ]).then(otherData => {
+                    resolve(Object.assign(data,otherData,{
+                        ip:'127.0.0.1'
+                    }));
+                })
+                return;
+            }
+            this.prompt([{
+                type: 'input',
+                name: 'prodJsCSSPath',
+                message: 'JS&CSS资源地址：',
+                default: ""
+            }, {
+                type: 'input',
+                name: 'prodImgPath',
+                message: '图片资源地址:',
+                default: ""
+            }, {
+                type: 'list',
+                name: 'ip',
+                message: '选择ip:',
+                default: '127.0.0.1',
+                choices: myIpArr
+            }, {
+                type: 'input',
+                name: 'port',
+                message: '端口:',
+                default: "80"
+            }, {
+                type: 'confirm',
+                name: 'needjQuery',
+                message: 'needjQuery?',
+                default: true
+            }, {
+                type: 'confirm',
+                name: 'needTimeStat',
+                message: '打包加入耗时上报?',
+                default: true
+            }]).then(otherData => {
+                resolve(Object.assign(data, otherData));
+            })
+        })).then(data => new Promise(resolve => {
             this.prompt([{
                 type: 'confirm',
                 name: 'setHost',
