@@ -95,6 +95,10 @@ yo worker
 - v2.9.0-0 新增mpvue小程序模板
 - v2.9.0-1 小程序模板：删除host提示
 
+为解决模板多，不利于维护的问题，现将各个模板分拆管理，因此发布3.x版本
+
+- v3.0.0-0 去除common命名改为PC模板，分拆PC模板到[这里](https://www.npmjs.com/package/worker-template-pc)，分拆小程序模板到[这里](https://www.npmjs.com/package/worker-template-miniprogram)，剩余模板将于下一个版本接入
+
 
 ###TODO
 

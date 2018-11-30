@@ -1,7 +1,7 @@
 {
   "name": "generator-worker",
   "version": "2.9.0-1",
-  "description": "a Yeoman generator for zuo's workflow in YY.inc",
+  "description": "a Yeoman generator for webpackworkflow in YYGame",
   "main": "app/index.js",
   "files": [
     "app"
@@ -25,8 +25,10 @@
   "dependencies": {
     "host": "0.0.1",
     "js-pinyin": "^0.1.9",
-    "yeoman-generator": "^1.1.1",
-    "yo": "^2.0.0"
+    "yeoman-generator": "^3.1.1",
+    "yo": "^2.0.0",
+    "worker-template-pc":"1.1.0",
+    "worker-template-miniprogram":"1.1.0"
   },
   "peerDependencies": {
     "yo": "^2.0.0"
