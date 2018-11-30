@@ -15,24 +15,24 @@
 
 脚手架功能
 
-- 具体业务功能打开来看
+- 具体模块功能打开来看
 - 设置host功能
+- 可随意接入模块
 
 
 模板特性：
  - 兼容ie8，会处理loose
  - 带lint和precommmit，不合规范的js代码禁止commit
- - 自带有asset（隔壁同事介绍用的一个会计算图片大小的post-css插件）
+ - 自带有asset（隔壁老王介绍用的一个会计算图片大小的post-css插件）
  - 图片合并雪碧图插件
  - 手游带有rem计算的属性（目前已用px2rem替代）
- - js，css发布地址可配置，静态资源img地址分开配置
+ - 静态资源img地址分开配置
+ - 各个模板特性使用说明详见模板下的guide.md文件
 
 该脚手架具有以下模板 
 
-- common  一个单，多页面的模版
-    - 页游（2.x版本统一称为common）
-    - 端游（2.x版本统一称为common）
-    - 手游（2.x版本统一称为common）
+- mini-program 移动端-小程序
+- PC PC端webpack模板
 - mobile-simple 移动端单页面 不使用js框架，适合小页面
 - mobile-vue 移动端vue页面
 
@@ -98,7 +98,7 @@ yo worker
 为解决模板多，不利于维护的问题，现将各个模板分拆管理，因此发布3.x版本
 
 - v3.0.0-0 去除common命名改为PC模板，分拆PC模板到[这里](https://www.npmjs.com/package/worker-template-pc)，分拆小程序模板到[这里](https://www.npmjs.com/package/worker-template-miniprogram)，剩余模板将于下一个版本接入
-
+- v3.0.0-1 更新修复模块中路径问题
 
 ###TODO
 
