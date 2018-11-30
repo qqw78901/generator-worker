@@ -99,6 +99,8 @@ yo worker
 
 - v3.0.0-0 去除common命名改为PC模板，分拆PC模板到[这里](https://www.npmjs.com/package/worker-template-pc)，分拆小程序模板到[这里](https://www.npmjs.com/package/worker-template-miniprogram)，剩余模板将于下一个版本接入
 - v3.0.0-1 更新修复模块中路径问题
+- v3.0.0-2 fixbug 调整npmignore问题
+- v3.0.0-3 fixbug 调整npmignore问题
 
 ###TODO
 
