@@ -101,6 +101,7 @@ yo worker
 - v3.0.0-1 更新修复模块中路径问题
 - v3.0.0-2 fixbug 调整npmignore问题
 - v3.0.0-3 fixbug 调整npmignore问题
+- v3.0.0 分拆移动端-无框架模板到[这里](https://www.npmjs.com/package/worker-template-mobile-simple),新增PC-react模板[这里](https://www.npmjs.com/package/worker-template-pc-react)；各个模块未稳定，因此3.0.x下所有版本引入各个模块模板策略为引入最新版，模块更新只需要重新安装/更新一次本包即可
 
 ###TODO
 
@@ -108,4 +109,4 @@ yo worker
 - 对没装yarn的环境的支持[done]
 - 最近的业务做了一个项目同时运行移动版和pc版的，即改进文件夹结构，改进配置，对手机版应用px2rem、autoprefixer，而pc版正常，所以计划添加一个新模板--[新模板-多端]
 - vue默认装上router，注释逻辑代码
-- folder js to entry
+- folder js to entry[done]

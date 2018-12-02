@@ -3,9 +3,14 @@ const getIpList = require('./utils/getIpList');
 const getPinYin = require('./utils/getPinYin');
 const setHost = require('./utils/setHost');
 const TemplatePC = require('worker-template-pc');
+const TemplateMobileSimple = require('worker-template-mobile-simple');
+const TemplatePCReact = require('worker-template-pc-react');
+
 const TemplateMiniProgram = require('worker-template-miniprogram');
 const Template = {
     PC: TemplatePC,
+    MobileSimple: TemplateMobileSimple,
+    PCReact: TemplatePCReact,
     MiniProgram: TemplateMiniProgram
 }
 module.exports = class extends Generator {
@@ -46,16 +51,22 @@ module.exports = class extends Generator {
                     {
                         name: "PC端-无框架",
                         value: "PC"
+                    },
+                    {
+                        name: "PC端-React",
+                        value: "PCReact"
                     }, {
                         name: "移动端-无框架",
-                        value: "mobile-simple"
-                    }, {
-                        name: "移动端-vue",
-                        value: "tpl-mobileVue"
-                    }, {
-                        name: "移动端-react",
-                        value: "tpl-mobileReact"
-                    }
+                        value: "MobileSimple"
+                    }, 
+                    // {
+                    //     name: "移动端-vue",
+                    //     value: "tpl-mobileVue"
+                    // }, 
+                    // {
+                    //     name: "移动端-react",
+                    //     value: "tpl-mobileReact"
+                    // }
                 ]
             }])
             /**
