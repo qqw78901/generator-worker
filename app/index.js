@@ -27,8 +27,7 @@ module.exports = class extends Generator {
                         });
                         this.log(logs.join('\n'));
                         this.log('即将执行自动更新');
-                        updateMySelf(this,()=>{
-                        });
+                        updateMySelf(this);
                         reject(new Error('等待更新完毕或执行全局安装generator-worker'));
                         // reject(new Error('即将执行自动更新'));
                     }else{
