@@ -2,6 +2,8 @@
 const getIpList = require('./utils/getIpList');
 const getPinYin = require('./utils/getPinYin');
 const setHost = require('./utils/setHost');
+const checkUpdate = require('./checkUpdate');
+const updateMySelf = require('./checkUpdate').updateMySelf;
 const TemplatePC = require('worker-template-pc');
 const TemplateMobileSimple = require('worker-template-mobile-simple');
 const TemplatePCReact = require('worker-template-pc-react');
@@ -14,6 +16,33 @@ const Template = {
     MiniProgram: TemplateMiniProgram
 }
 module.exports = class extends Generator {
+    initializing (){
+        this.log('正在检查更新...')
+        return new Promise((resolve,reject)=>{
+            checkUpdate(['worker-template-pc','worker-template-mobile-simple','worker-template-pc-react','worker-template-miniprogram']).then(
+                (result)=>{
+                    if(result.length){
+                        const logs = result.map(item=>{
+                            return `${item.packageName}有最新版${item.remoteVersion},当前版本${item.localVersion}`
+                        });
+                        this.log(logs.join('\n'));
+                        this.log('即将执行自动更新');
+                        updateMySelf(this,()=>{
+                        });
+                        reject(new Error('等待更新完毕或执行全局安装generator-worker'));
+                        // reject(new Error('即将执行自动更新'));
+                    }else{
+                        this.log('所有模块都是最新版')
+                        resolve();
+                    }
+                }
+            ).catch(error=>{
+                console.error(error);
+                resolve();
+            })
+        })
+   
+    }
     prompting() {
         var myIpArr = getIpList();
         this.developerName = this.user.git.name() || "";
@@ -87,7 +116,7 @@ module.exports = class extends Generator {
              */
             .then(data => {
                 if (data.setHost) {
-                    setHost();
+                    setHost(data.ip,data.host);
                 }
                 return data;
             })

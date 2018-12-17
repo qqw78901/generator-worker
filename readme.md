@@ -103,6 +103,7 @@ yo worker
 - v3.0.0-3 fixbug 调整npmignore问题
 - v3.0.0 分拆移动端-无框架模板到[这里](https://www.npmjs.com/package/worker-template-mobile-simple),新增PC-react模板[这里](https://www.npmjs.com/package/worker-template-pc-react)；各个模块未稳定，因此3.0.x下所有版本引入各个模块模板策略为引入最新版，模块更新只需要重新安装/更新一次本包即可
 - v3.0.1 fixbug 修复设置host时加的注释导致host不生效的问题
+- v3.1.0-0 添加版本检查 
 
 ###TODO
 

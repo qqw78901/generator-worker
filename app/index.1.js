@@ -198,3 +198,4 @@ module.exports = generators.extend({
         })
     },
 });
+//npm view generator-worker dist-tags.latest
