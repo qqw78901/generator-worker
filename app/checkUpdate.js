@@ -62,10 +62,10 @@ module.exports = function (packageList) {
 }
 module.exports.updateMySelf = function updateMySelf(ctx) {
     ctx.log('正在执行自动更新')
-    let err = ctx.spawnCommandSync('npm', ['install', '--global'].concat('generator-worker@beta'), {
+    let err = ctx.spawnCommandSync('npm', ['install', '--global'].concat('generator-worker'), {
             stdio: 'inherit'
         });
-        if(!err){
+   if(!err){
             cts.log('已更新完毕，请重新执行命令');
         }
 }
